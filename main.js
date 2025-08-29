@@ -1,7 +1,7 @@
 // --- DOM Element Selection Section ---
 const heartCountEl = document.getElementById('heart-count');
 const coinCountEl = document.getElementById('coin-count');
-const copyCountEl = document.getElementById('copy-count');
+const copyCountEl = document.getElementById('copy-count-text'); // Fixed to match HTML
 const cardContainer = document.getElementById('card-container');
 const historyList = document.getElementById('history-list');
 const clearHistoryBtn = document.getElementById('clear-history-btn');
@@ -32,23 +32,23 @@ function renderCards() {
         card.innerHTML = `
             <div class="flex items-center justify-between mb-4">
                 <img src="${service.icon}" alt="${service.englishName}" class="w-12 h-12">
-                <span class="text-xl heart-icon cursor-pointer">❤️</span>
+                <span class="text-xl heart-icon cursor-pointer"><i class="far fa-heart"></i></span>
             </div>
-            <div class="text-center mb-4">
+            <div class="text-left mb-4"> <!-- Left-aligned text -->
                 <h4 class="text-xl font-bold">${service.name}</h4>
                 <p class="text-sm text-gray-500">${service.englishName}</p>
                 <p class="text-2xl font-bold text-gray-800 mt-2">${service.hotlineNumber}</p>
             </div>
-            <div class="flex justify-center mb-4">
+            <div class="flex justify-start mb-4"> <!-- Category left-aligned -->
                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${service.category}</span>
             </div>
             <div class="flex space-x-2">
                 <button class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors copy-btn" data-hotline="${service.hotlineNumber}">
-                    <span class="mr-1">©️</span>
+                    <i class="far fa-copy mr-1"></i>
                     Copy
                 </button>
                 <button class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors call-btn" data-service-name="${service.name}" data-hotline="${service.hotlineNumber}">
-                    <span class="mr-1">☎️</span>
+                    <i class="fas fa-phone mr-1"></i>
                     Call
                 </button>
             </div>
@@ -63,6 +63,7 @@ cardContainer.addEventListener('click', (event) => {
     if (heartIcon) {
         heartCount++;
         heartCountEl.textContent = heartCount;
+        heartIcon.innerHTML = '<i class="fas fa-heart text-red-500"></i>'; // Solid heart
     }
 
     const callBtn = event.target.closest('.call-btn');
@@ -97,9 +98,9 @@ cardContainer.addEventListener('click', (event) => {
         const hotline = copyBtn.dataset.hotline;
         navigator.clipboard.writeText(hotline)
             .then(() => {
+                copyCount++; // Increment copy count
+                copyCountEl.textContent = `${copyCount} Copy`; // Update display
                 alert(`Phone number ${hotline} copied!`);
-                copyCount++;
-                copyCountEl.textContent = copyCount;
             })
             .catch(err => {
                 console.error('Failed to copy: ', err);
