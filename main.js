@@ -44,11 +44,11 @@ function renderCards() {
             </div>
             <div class="flex space-x-2">
                 <button class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors copy-btn" data-hotline="${service.hotlineNumber}">
-                    <i class="fas fa-copy mr-1"></i>
+                    <span class="mr-1">©️</span>
                     Copy
                 </button>
                 <button class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors call-btn" data-service-name="${service.name}" data-hotline="${service.hotlineNumber}">
-                    <i class="fas fa-phone mr-1"></i>
+                    <span class="mr-1">☎️</span>
                     Call
                 </button>
             </div>
